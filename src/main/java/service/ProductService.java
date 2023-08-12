@@ -3,11 +3,13 @@ package service;
 import entity.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
     List<Product> findAll();
-    Product findById(int id);
+    Optional<Product> findById(int id);
     void save(Product product);
     Product update(Product product);
     void delete(int id);
+    void multiDelete(List<Product> products);
 }

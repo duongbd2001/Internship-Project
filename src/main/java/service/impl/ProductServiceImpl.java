@@ -7,6 +7,8 @@ import repository.ProductRepository;
 import service.ProductService;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -19,8 +21,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product findById(int id) {
-        return productRepository.getById(id);
+    public Optional<Product> findById(int id) {
+        return productRepository.findById(id);
     }
 
     @Override
@@ -36,5 +38,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(int id) {
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public void multiDelete(List<Product> products) {
+        List<Integer> listId = products.stream().map(Product::getIdProduct).toList();
+        productRepository.multiDelete(listId);
     }
 }

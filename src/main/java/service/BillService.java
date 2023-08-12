@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface BillService {
     List<Bill> getAll();
-    Bill getOne(int id);
+    Optional<Bill> getOne(int id);
     void create(Bill bill);
     void deleteById(int id);
     void update(Bill bill);

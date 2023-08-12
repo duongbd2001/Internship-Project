@@ -7,6 +7,7 @@ import repository.BillRepository;
 import service.BillService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BillServiceImpl implements BillService {
@@ -19,8 +20,8 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public Bill getOne(int id) {
-        return billRepository.getOne(id);
+    public Optional<Bill> getOne(int id) {
+        return billRepository.findById(id);
     }
 
     @Override

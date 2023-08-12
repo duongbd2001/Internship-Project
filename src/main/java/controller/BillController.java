@@ -1,15 +1,16 @@
 package controller;
 
 import entity.Bill;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import service.BillService;
 
+import java.util.List;
+import java.util.Optional;
+
 @RequestMapping("/bill")
 @Controller
-@Slf4j
 public class BillController {
     private final BillService billService;
 
@@ -18,37 +19,44 @@ public class BillController {
     }
 
     @GetMapping("/get-all")
-    public String getAllBill() {
+    public String getAllBill(Model model) {
+        List<Bill> listBill = billService.getAll();
+        model.addAttribute("listBill", listBill);
         return null;
     }
 
     @GetMapping("/get-one/{id}")
-    public String findById(@PathVariable("id") Integer id) {
-        Bill bill = billService.getOne(id);
+    public String findById(@PathVariable("id") Integer id, Model model) {
+        Optional<Bill> bill = billService.getOne(id);
+        if (bill.isEmpty()) {
+            throw new RuntimeException("Không tìm thấy hóa đơn với id " + id);
+        }
+        model.addAttribute("bill", bill);
         return null;
     }
 
     @PostMapping("/create")
-    public String createBill(@Validated Bill bill) {
+    public String createBill(@ModelAttribute("createBill") Bill bill) {
+        if (billService.getOne(bill.getIdBill()).isPresent()) {
+            throw new RuntimeException("Hóa đơn " + bill.getIdBill() + " đã tồn tại.");
+        }
         billService.create(bill);
         return null;
     }
 
     @DeleteMapping("/delete/{id}")
     public String deleteBill(@PathVariable("id") Integer id) {
+        if (billService.getOne(id).isEmpty()) {
+            throw new RuntimeException("Không tìm thấy hóa đơn này.");
+        }
         billService.deleteById(id);
         return null;
     }
 
     @PostMapping("/update")
-    public String updateBill( Bill bill) {
+    public String updateBill(@ModelAttribute("updateBill") Bill bill) {
         billService.update(bill);
         return null;
     }
-//    @GetMapping("/page-query")
-//    public String pageQuery(BillDTO billDto, @PageableDefault(sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable) {
-//        Page<BillDTO> billPage = billService.findByCondition(billDto, pageable);
-//        return null;
-//    }
 
 }
