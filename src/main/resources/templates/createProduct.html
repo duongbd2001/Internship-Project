@@ -1,0 +1,46 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title th:if="${situation}=='create_new'">Thêm mới sản phẩm</title>
+    <title th:if="${situation}=='update'">Update course</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div>
+    <form style="padding: 100px">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail4">Nhập tên mặt hàng</label>
+                <input type="email" class="form-control" id="inputEmail4" placeholder="Áo bóng đá, tất,...">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputPassword4">Giá mặt hàng</label>
+                <input type="password" class="form-control" id="inputPassword4" placeholder="500000">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputAddress">Số lượng</label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="12">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="inputState">Nhà cung cấp</label>
+                <select id="inputState" class="form-control">
+                    <option selected>...</option>
+                    <option>...</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Mô tả sản phẩm</label>
+            <input type="text" class="form-control" id="inputAddress2" placeholder="Thêm mô tả...">
+        </div>
+        <button type="submit" class="btn btn-primary">Thêm mới</button>
+    </form>
+</div>
+</body>
+</html>

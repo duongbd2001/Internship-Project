@@ -7,6 +7,7 @@ import repository.SupplierRepository;
 import service.SupplierService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SupplierServiceImpl implements SupplierService {
@@ -19,8 +20,8 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public Supplier findById(int id) {
-        return supplierRepository.getById(id);
+    public Optional<Supplier> findById(int id) {
+        return supplierRepository.findById(id);
     }
 
     @Override

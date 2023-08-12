@@ -29,7 +29,7 @@ public class BillDetailController {
         if (billDetail.isEmpty()) {
             throw new RuntimeException("Không tìm thấy hóa đơn chi tiết với id " + id);
         }
-        model.addAttribute("billDetail", billDetail);
+        model.addAttribute("billDetail", billDetail.get());
         return null;
     }
 

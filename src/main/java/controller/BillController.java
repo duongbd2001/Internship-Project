@@ -31,7 +31,7 @@ public class BillController {
         if (bill.isEmpty()) {
             throw new RuntimeException("Không tìm thấy hóa đơn với id " + id);
         }
-        model.addAttribute("bill", bill);
+        model.addAttribute("bill", bill.get());
         return null;
     }
 

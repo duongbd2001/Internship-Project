@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import service.AccountService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/account")
@@ -24,8 +25,11 @@ public class AccountController {
 
     @GetMapping("/get-one/{id}")
     public String getOneAccount(@PathVariable("id") int id, Model model) {
-        Account account = accountService.findById(id);
-        model.addAttribute("account", account);
+        Optional<Account> account = accountService.findById(id);
+        if (account.isEmpty()) {
+            throw new RuntimeException("Tài khoản không tồn tại");
+        }
+        model.addAttribute("account", account.get());
         return null;
     }
 

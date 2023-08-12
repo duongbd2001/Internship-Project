@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import service.SupplierService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/supplier")
@@ -22,8 +23,12 @@ public class SupplierController {
     }
 
     @GetMapping("/get-one/{id}")
-    public String getOneSupplier(@PathVariable("id") int id) {
-        supplierService.findById(id);
+    public String getOneSupplier(@PathVariable("id") int id, Model model) {
+        Optional<Supplier> supplier = supplierService.findById(id);
+        if (supplier.isEmpty()) {
+            throw  new RuntimeException("Nhà cung cấp " + id + " không tồn tại");
+        }
+        model.addAttribute("supplier", supplier.get());
         return null;
     }
 

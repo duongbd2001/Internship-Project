@@ -7,6 +7,7 @@ import repository.AccountRepository;
 import service.AccountService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -15,12 +16,17 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<Account> getAll() {
-        return accountRepository.findAccountByIdAccount();
+        return accountRepository.findAll();
     }
 
     @Override
-    public Account findById(int id) {
-        return accountRepository.getById(id);
+    public Optional<Account> findById(int id) {
+        return accountRepository.findById(id);
+    }
+
+    @Override
+    public Optional<Account> findByUsernameAndPassword(String username, String password) {
+        return accountRepository.findAccountByUsernameAndPassword(username, password);
     }
 
     @Override

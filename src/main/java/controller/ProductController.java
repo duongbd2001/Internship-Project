@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import service.ProductService;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +27,7 @@ public class ProductController {
     public String getOne(@PathVariable("id") int id, Model model) throws RuntimeException {
         Optional<Product> product = productService.findById(id);
         if (product.isPresent()) {
-            model.addAttribute("product", product);
+            model.addAttribute("product", product.get());
             return null;
         }
         throw new RuntimeException("Không tìm thấy sản phẩm có id: " + id);
