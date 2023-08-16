@@ -38,4 +38,9 @@ public class SupplierServiceImpl implements SupplierService {
     public void delete(int id) {
         supplierRepository.deleteById(id);
     }
+
+    @Override
+    public List<Supplier> findByName(String name) {
+        return supplierRepository.findByName(name);
+    }
 }

@@ -16,4 +16,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Transactional
     @Query(value = "DELETE FROM Product WHERE idProduct in :ids")
     void multiDelete(@Param("ids") List<Integer> ids);
+
+    @Query(value = "SELECT P FROM Product P WHERE P.name LIKE '%name%'")
+    List<Product> findByName(@Param("name") String name);
 }

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="/css/login.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="/css/login.css" rel="stylesheet"/>
 </head>
 
 <header>
@@ -23,16 +24,16 @@
                      class="img-fluid" alt="Sample image">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form>
+                <form name="loginForm" th:object="${login}" method="post" th:action="@{/login}">
                     <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                         <p class="lead fw-normal mb-0 me-3">Sign in with</p>
-                        <button type="button" class="btn btn-primary btn-floating mx-1">
+                        <a type="button" class="btn btn-primary btn-floating mx-1" href="https://www.facebook.com">
                             <i class="fab bi bi-facebook"></i>
-                        </button>
+                        </a>
 
-                        <button type="button" class="btn btn-primary btn-floating mx-1">
-                            <i class="fab fa-twitter"></i>
-                        </button>
+                        <a type="button" class="btn btn-primary btn-floating mx-1" href="https://www.google.com">
+                            <i class="fab fa-google"></i>
+                        </a>
 
                         <button type="button" class="btn btn-primary btn-floating mx-1">
                             <i class="fab fa-linkedin-in"></i>
@@ -43,24 +44,42 @@
                         <p class="text-center fw-bold mx-3 mb-0">Or</p>
                     </div>
 
-                    <!-- Email input -->
+                    <!-- Username input -->
                     <div class="form-outline mb-4">
-                        <input type="email" id="form3Example3" class="form-control form-control-lg"
-                               placeholder="Enter a valid email address" />
-                        <label class="form-label" for="form3Example3">Email address</label>
+                        <input type="text" id="user" class="form-control form-control-lg"
+                               placeholder="Username..." name="username"/>
+                        <label class="form-label">Username</label>
+                        <!--if username is empty-->
+                        <th:block th:if="${emptyUser}">
+                            <div th:classappend="${param.error}?'show':'hide'" class="form__message form__message-error"
+                                 style="color: #ff2918">
+                                Vui lòng điền tên đăng nhập
+                            </div>
+                        </th:block>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-3">
-                        <input type="password" id="form3Example4" class="form-control form-control-lg"
-                               placeholder="Enter password" />
-                        <label class="form-label" for="form3Example4">Password</label>
+                        <input type="password" id="pass" class="form-control form-control-lg"
+                               placeholder="Enter password" name="password"/>
+                        <label class="form-label">Password</label>
+                        <!--if password is empty-->
+                        <th:block th:if="${emptyPass}">
+                            <div th:classappend="${param.error}?'show':'hide'" class="form__message form__message-error"
+                                 style="color: #ff2918">
+                                Vui lòng điền mật khẩu
+                            </div>
+                        </th:block>
                     </div>
+                    <!--if username or password invalid-->
+                    <th:block th:if="${invalid}">
+                        <label th:text="${invalid}" style="color: #ff2918"/>
+                    </th:block>
 
                     <div class="d-flex justify-content-between align-items-center">
                         <!-- Checkbox -->
                         <div class="form-check mb-0">
-                            <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                            <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3"/>
                             <label class="form-check-label" for="form2Example3">
                                 Remember me
                             </label>
@@ -69,23 +88,19 @@
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">
-                        <button type="button" class="btn btn-primary btn-lg"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-                        <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
-                                                                                          class="link-danger">Register</a></p>
+                        <button type="submit" class="btn btn-primary btn-lg"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Login
+                        </button>
+                        <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/login"
+                                                                                          class="link-danger">Register</a>
+                        </p>
                     </div>
 
                 </form>
             </div>
         </div>
     </div>
-    <div
-            class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
-        <!-- Copyright -->
-        <div class="text-white mb-3 mb-md-0">
-            Copyright © 2020. All rights reserved.
-        </div>
-        <!-- Copyright -->
+    <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
 
         <!-- Right -->
         <div>

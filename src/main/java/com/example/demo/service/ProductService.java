@@ -13,4 +13,5 @@ public interface ProductService {
     Product update(Product product);
     void delete(int id);
     void multiDelete(List<Product> products);
+    List<Product> findByName(String name);
 }

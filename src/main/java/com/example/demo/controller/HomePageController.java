@@ -22,8 +22,7 @@ public class HomePageController {
 //    }
 
     @GetMapping("/home")
-    public String homePage() {
-        System.out.println("gédbvfihdsvofsjbfjdkdf");
+    public String homePage(Model model) {
         return "homePage";
     }
 
@@ -33,10 +32,19 @@ public class HomePageController {
     }
 
     @PostMapping("/login")
-    public String logged(@RequestParam String username, @RequestParam String password, Model model, HttpSession session) {
+    public String logged(@RequestParam("username") String username, @RequestParam("password") String password, Model model, HttpSession session) {
+        if (username.isEmpty()) {
+            model.addAttribute("emptyUser", "Vui lòng điền tên đăng nhập");
+            return "login";
+        }
+        if (password.isEmpty()) {
+            model.addAttribute("emptyPass", "Vui lòng điền mật khẩu");
+            return "login";
+        }
         Optional<Account> account = accountService.findByUsernameAndPassword(username, password);
         if (account.isEmpty()) {
-            throw new RuntimeException("Sai tên đăng nhập hoặc mật khẩu");
+            model.addAttribute("invalid", "Sai thông tin tài khoản hoặc mật khẩu");
+            return "login";
         }
         model.addAttribute("username", username);
         model.addAttribute("password", password);

@@ -44,4 +44,9 @@ public class ProductServiceImpl implements ProductService {
         List<Integer> listId = products.stream().map(Product::getIdProduct).toList();
         productRepository.multiDelete(listId);
     }
+
+    @Override
+    public List<Product> findByName(String name) {
+        return productRepository.findByName(name);
+    }
 }
