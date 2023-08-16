@@ -11,4 +11,5 @@ public interface SupplierService {
     void save(Supplier supplier);
     Supplier update(Supplier supplier);
     void delete(int id);
+    List<Supplier> findByName(String name);
 }
