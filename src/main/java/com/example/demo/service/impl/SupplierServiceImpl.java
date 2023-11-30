@@ -43,4 +43,9 @@ public class SupplierServiceImpl implements SupplierService {
     public List<Supplier> findByName(String name) {
         return supplierRepository.findByName(name);
     }
+
+    @Override
+    public Optional<Supplier> findBySelectedName(String name) {
+        return supplierRepository.findByNameSupplier(name);
+    }
 }

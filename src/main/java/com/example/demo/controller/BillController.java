@@ -44,6 +44,11 @@ public class BillController {
         return null;
     }
 
+    @GetMapping("/create")
+    public String create() {
+        return "bill";
+    }
+
     @PostMapping("/create")
     public String createBill(@ModelAttribute("createBill") Bill bill, Model model, @RequestParam("nameSupplier") String nameSupplier, @RequestParam("nameProduct") String nameProduct) {
         //find supplier like input name
@@ -54,6 +59,8 @@ public class BillController {
         }
         //show list supplier to view
         model.addAttribute("listSupplier", supplierList);
+        String supplier = (String) model.getAttribute("selectedSupplier");
+        Optional<Supplier> selectedSupplier = supplierService.findBySelectedName(supplier);
 
         //find product by input name
         List<Product> listProduct = productService.findByName(nameProduct);
@@ -66,7 +73,7 @@ public class BillController {
             throw new RuntimeException("Hóa đơn " + bill.getName() + " đã tồn tại.");
         }
         billService.create(bill);
-        return null;
+        return "pay";
     }
 
     @DeleteMapping("/delete/{id}")

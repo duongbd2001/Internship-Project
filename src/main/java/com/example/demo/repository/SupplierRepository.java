@@ -7,9 +7,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SupplierRepository extends JpaRepository<Supplier, Integer> {
     @Query(value = "SELECT s.nameSupplier, s.address, s.email, s.phoneNumber FROM Supplier AS s WHERE s.nameSupplier like '%:name%'")
     List<Supplier> findByName(@Param("name") String name);
+
+    Optional<Supplier> findByNameSupplier(String name);
 }
